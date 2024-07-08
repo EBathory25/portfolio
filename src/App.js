@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{Suspense, lazy} from "react";
+import Header from "./components/Header";
+import About from "./components/About";
+import Main from "./components/Main";
+import Knowledge from "./components/Knowledge";
+import Contact from "./components/Contact";
+import ScrollButton from "./elements/ScrollButton";
 
-function App() {
+const MainLazy = lazy(()=>import("./components/Main"))
+const HeaderLazy = lazy(()=>import("./components/Header"))
+const AboutLazy = lazy(()=>import("./components/About"))
+const KnowledgeLazy = lazy(()=>import("./components/Knowledge"))
+const ContactLazy = lazy(()=>import("./components/Contact"))
+const  App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-orange relative flex-auto">
+    <Suspense fallback={<div>Loading...</div>}>
+     <HeaderLazy/>
+     <MainLazy/>
+     <KnowledgeLazy/>
+     <AboutLazy/>
+     <ContactLazy/>
+     </Suspense>
+     <ScrollButton/>
     </div>
   );
 }
